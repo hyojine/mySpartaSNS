@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    회원가입
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="wrap">
+            <h2 class="title-center"> 회원가입 </h2>
+            <form class="form-area" method='post' action="/sign-up/">
+                {# form: 화면의 데이터를 서버로 전송할때 사용하는 태그 #}
+                {# method: 읽어오고 싶을 땐 get/주고싶을 땐 post -> 회원가입은 정보를 서버에 전달하니까 post #}
+                {# action: 어디 url로 저장할건지 #}
+                {% csrf_token %}
+                {# 포스트시에 보안기능 추가 #}
+                <div class="form-group mt-2 mb-2">
+                    <label for="username">이름</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                </div>
+                <div class="form-group mt-2 mb-2">
+                    <label for="password">비밀번호</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <div class="form-group mt-2 mb-2">
+                    <label for="password2">비밀번호 확인</label>
+                    <input type="password" class="form-control" id="password2" name="password2">
+                </div>
+                <div class="form-group mt-2 mb-2">
+                    <label for="bio">나를 한마디로</label>
+                    <input type="text" class="form-control" id="bio" name="bio">
+                </div>
+                {# 위의 4가지 기능들 (name 기준으로) username, password, password2, bio를 서버로 전달 #}
+                {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                {% endif %}
+                <hr>
+                <div style="float: right">
+                    <button type="submit" class="btn btn-primary">회원가입</button>
+                    {# form 안에 있으면 해당 form 실행 -sign-up이라는 url로 post 방식으로 데이터를 보내주는 버튼 #}
+                    <a href="/sign-in" class="btn btn-secondary">로그인 페이지로</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+{% endblock %}
